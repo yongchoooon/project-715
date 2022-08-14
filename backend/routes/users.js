@@ -6,14 +6,14 @@ const bcrypt = require('bcryptjs');
 var mysql = require('mysql');
 // Connection 객체 생성 
 var connection = mysql.createConnection({
-  host: 'localhost',
+  host: 'rsv715.cw0mqhawwwhk.ap-northeast-2.rds.amazonaws.com',
   port: 3306,
-  user: 'root',   
-  password: 'bh990731!',
-  database: '715job'  
+  user: 'admin',   
+  password: 'pknu715job',
+  database: 'rsv715'  
 });  
 // Connect
-connection.connect(function (err) {   
+connection.connect(function (err) {
   if (err) {     
     console.error('mysql connection error');     
     console.error(err);     

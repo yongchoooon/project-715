@@ -1,6 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /node_modules
 =======
+=======
+>>>>>>> bfaca4056526531f87f5cdc9b2c0b87ec6c2822c
 # Logs
 logs
 *.log
@@ -105,4 +108,7 @@ dist
 
 # TernJS port file
 .tern-port
+<<<<<<< HEAD
+>>>>>>> bfaca4056526531f87f5cdc9b2c0b87ec6c2822c
+=======
 >>>>>>> bfaca4056526531f87f5cdc9b2c0b87ec6c2822c

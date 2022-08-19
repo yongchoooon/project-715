@@ -12,12 +12,11 @@
               label="직책"
               dense
               outlined
-              :style='{"padding-top":"20px", "padding-left":"20px", "padding-right":"20px", "width":"200px"}'
+              :style='{"padding-top":"20px", "padding-left":"20px", "padding-right":"20px", "width":"50%"}'
             ></v-select>
 
             <v-text-field
               value="hwangbh8@gmail.com"
-              readonly
               :rules="emailRule"
               label="E-mail"
               required
@@ -63,7 +62,8 @@ export default {
       v => !!v || '이메일을 입력해주세요.',
       v => {
         const replaceV = v.replace(/(\s*)/g, '')
-        const pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/
+        const pattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
+        console.log(pattern.test(replaceV))
         return pattern.test(replaceV) || '이메일 형식으로 입력해주세요'
       }
     ]

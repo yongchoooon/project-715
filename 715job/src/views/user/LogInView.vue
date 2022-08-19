@@ -3,21 +3,21 @@
     <div class="main">
       <div class="loginHead">로그인</div>
       <div class="loginContents">
-        <form action="" method=”post” enctype=”multipart/form-data”>
           <div class="idBox">
-            <v-text-field class="v_text_input" label="아이디"></v-text-field>
+            <v-text-field type="text" id="id" class="v_text_input" v-model="user.userid" label="아이디" autocomplete='off'></v-text-field>
           </div>
           <div class="passwordBox">
             <v-text-field
+              id="password"
               class="v_text_input"
+              v-model="user.password"
               label="비밀번호"
               type="password"
             ></v-text-field>
           </div>
           <div class="loginButton">
-            <input type="submit" value="로그인">
+            <button @click="logIn">로그인</button>
           </div>
-        </form>
         <div class="findButtons">
           <ul class="findButtonLists">
             <li><router-link to="/user/findid">아이디 찾기</router-link></li>
@@ -32,18 +32,37 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
-  components: {},
   data() {
     return {
-      sampleData: ''
+      user: {
+        userid: '',
+        password: ''
+      }
     }
   },
-  setup() {},
-  created() {},
-  mounted() {},
-  unmounted() {},
-  methods: {}
+  methods: {
+    logIn(event) {
+      axios.post('/api/users/logIn', {
+        user: this.user
+      })
+        .then((res) => {
+          if (res.data.success === true) {
+            // 로그인 성공
+            alert(res.data.message)
+            this.$router.push('/')
+          }
+          if (res.data.success === false) {
+            // 로그인 실패
+            alert(res.data.message)
+          }
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    }
+  }
 }
 </script>
 
@@ -76,7 +95,7 @@ a:visited {
 .loginContents {
   margin-top: 98px;
 }
-.loginContents > form > .idBox,
+.loginContents > .idBox,
 .passwordBox,
 .loginButton {
   margin: auto;
@@ -91,6 +110,14 @@ a:visited {
   height: 96px;
 }
 .loginButton > input {
+  width: 388px;
+  height: 70px;
+  font-size: 24px;
+  border-radius: 2px;
+  background-color: rgb(0, 36, 72);
+  color: white;
+}
+.loginButton > button {
   width: 388px;
   height: 70px;
   font-size: 24px;

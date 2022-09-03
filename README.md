@@ -11,3 +11,6 @@
   <img src="./image/mainpage-reservation.png" alt="mainpage-reservation" width="1000px">
 - My Page
   <img src="./image/mypage.png" alt="mypage" width="1000px">
+
+### Check
+- 22/09/04 : 프로그램 제작 시에는 AWS RDS를 사용해 데이터를 저장했으나 일정 기간 이후 과금이 발생해 localhost DB를 사용하도록 수정.

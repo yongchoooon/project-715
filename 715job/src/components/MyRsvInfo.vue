@@ -1,41 +1,46 @@
 <template>
   <div class="right-box">
     <div class="blank-box"></div>
-    <p class="greet-user">{{ this.rsvArr[0].name }}님, 안녕하세요</p>
+    <p class="greet-user">{{ username }}님, 안녕하세요</p>
     <div class="rsvinfo">
       <ul class="right-box-rsvinfo-table">
         <li class="right-box-rsvinfo">&nbsp;&nbsp;예약 정보</li>
         <div class="right-box-rsvinfo-box">
-          <div
-            v-for="(rsv, index) in this.rsvArr"
-            :key="index"
-            class="right-box-detail-rsvinfo"
-            style="font-size: small"
-          >
-            <div class="right-box-list-rsvinfo-left">
-              <div class="right-box-list-rsvinfo info1" width="3%">
-                {{ index + 1 }}
+          <div v-if="!isRsv" class="right-box-list-rsvinfo-none right-box-detail-rsvinfo" style="padding-left:12px;font-size:15px;">
+            예약 내용이 없습니다.
+          </div>
+          <div v-if="isRsv">
+            <div
+              v-for="(rsv, index) in this.rsvArr"
+              :key="index"
+              class="right-box-detail-rsvinfo"
+              style="font-size: small"
+            >
+              <div class="right-box-list-rsvinfo-left">
+                <div class="right-box-list-rsvinfo info1" width="3%">
+                  {{ index + 1 }}
+                </div>
+                <div class="right-box-list-rsvinfo info2" width="40%">
+                  {{
+                    new Date(rsv.rsvdate)
+                      .toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
+                      .slice(0, 12)
+                  }}
+                </div>
+                <div class="right-box-list-rsvinfo info3" width="40%">
+                  {{ rsv.rsvstarttime }} : 00 ~ {{ rsv.rsvendtime }} : 00
+                </div>
+                <div class="right-box-list-rsvinfo info4" width="18%">
+                  Table {{ rsv.tablenumber }}
+                </div>
+                <div class="right-box-list-rsvinfo info5" width="8%">
+                  {{ rsv.numofrsvpeople }}명
+                </div>
               </div>
-              <div class="right-box-list-rsvinfo info2" width="40%">
-                {{
-                  new Date(rsv.rsvdate)
-                    .toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })
-                    .slice(0, 12)
-                }}
-              </div>
-              <div class="right-box-list-rsvinfo info3" width="40%">
-                {{ rsv.rsvstarttime }} : 00 ~ {{ rsv.rsvendtime }} : 00
-              </div>
-              <div class="right-box-list-rsvinfo info4" width="18%">
-                Table {{ rsv.tablenumber }}
-              </div>
-              <div class="right-box-list-rsvinfo info5" width="8%">
-                {{ rsv.numofrsvpeople }}명
-              </div>
+              <button class="change-delete" @click="deleteRow(index)">
+                삭제
+              </button>
             </div>
-            <button class="change-delete" @click="deleteRow(index)">
-              삭제
-            </button>
           </div>
         </div>
       </ul>
@@ -47,20 +52,23 @@
 import axios from 'axios'
 export default {
   props: {
-    rsvArr: Array
+    rsvArr: Array,
+    isRsv: Boolean,
+    username: String
   },
   data() {
     return {
       name: this.rsvname,
-      numberofrsvpeople: this.numofrsvpeople,
-      rsvid: this.rsvArr
+      numberofrsvpeople: this.numofrsvpeople
     }
   },
-  mounted() {},
   methods: {
     deleteRow(index) {
+      console.log(this.rsvArr[index].rsvid)
       if (confirm('정말로 삭제하시겠습니까?')) {
-        axios.post('/api/users/deleteRsv', this.rsvid[index])
+        axios.post('/api/users/deleteRsv', {
+          rsvid: this.rsvArr[index].rsvid
+        })
         this.$router.go()
       }
     }
@@ -109,6 +117,9 @@ export default {
   border-right: 1px solid black;
   padding-right: 12px;
   margin-right: 12px;
+}
+.right-box-list-rsvinfo-none {
+  display: flex;
 }
 .right-box-list-rsvinfo-left {
   display: flex;

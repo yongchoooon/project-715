@@ -3,7 +3,7 @@
     <div class="left-box">
       <div class="left-box-profile">
         <img class="guest-img" src="@/assets/guest-img.png" alt="guest" />
-        <p class="my-name">{{ rsvArr[0].name }}</p>
+        <p class="my-name">{{ username }}</p>
         <div id="select-info">
           <div class="select-info" id="select-rsvinfo">
             <button @click="setMyRsvInfo">예약 정보</button>
@@ -14,8 +14,8 @@
         </div>
       </div>
     </div>
-    <MyRsvInfo v-if="isMyRsvInfo" :rsvArr="rsvArr"/>
-    <PersonalInfo v-if="isPersonalInfo" :name="rsvArr[0].name"/>
+    <MyRsvInfo v-if="isMyRsvInfo" :rsvArr="rsvArr" :isRsv="isRsv" :username="username"/>
+    <PersonalInfo v-if="isPersonalInfo" :username="username"/>
   </div>
 </template>
 <script>
@@ -33,14 +33,31 @@ export default {
     return {
       isPersonalInfo: false,
       isMyRsvInfo: true,
-      rsvArr: []
+      rsvArr: [],
+      isRsv: false,
+      username: ''
     }
   },
   setup() {},
-  created() {},
+  created() {
+  },
   mounted() {
+    axios.post('/api/users/userName').then((res) => {
+      this.username = res.data.loggedinusername
+    })
     axios.post('/api/users/rsvInfo').then((res) => {
-      this.rsvArr = res.data
+      const useddata = []
+      for (let i = 0; i < res.data.length; i++) {
+        if (new Date().getTime() < new Date(res.data[i].rsvdate).getTime() + 43200) {
+          useddata.push(res.data[i])
+        }
+      }
+      if (useddata.length !== 0) {
+        this.rsvArr = useddata
+        this.isRsv = true
+      } else {
+        this.isRsv = false
+      }
     })
   },
   unmounted() {},

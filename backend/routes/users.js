@@ -56,7 +56,7 @@ router.post('/signUp', function (req, res) {
 
 let isloggedin = 0;
 let loggedinuserid = '';
-
+let loggedinusername = '';
 // Log In
 router.post('/logIn', function (req, res) {
   const user = {
@@ -65,7 +65,7 @@ router.post('/logIn', function (req, res) {
   };
 
   isloggedin = 1;
-  connection.query('SELECT userid, password FROM users WHERE userid = "' + user.userid + '"', function (err, row) {
+  connection.query('SELECT name, userid, password FROM users WHERE userid = "' + user.userid + '"', function (err, row) {
     if (row[0] !== undefined && row[0].userid === user.userid) {
       bcrypt.compare(user.password, row[0].password, function (err, res2) {
         if (res2 === true) {
@@ -74,9 +74,11 @@ router.post('/logIn', function (req, res) {
           });
           res.json({ // 로그인 성공 
             success: true,
-            message: '로그인에 성공했습니다!'
+            message: '로그인에 성공했습니다!',
+            username: row[0].name
           });
           loggedinuserid = user.userid;
+          loggedinusername = row[0].name;
         }
         else {
           res.json({ // 매칭되는 아이디는 있으나, 비밀번호가 틀린 경우            
@@ -140,6 +142,13 @@ router.post('/makeRsv', function (req, res) {
   const rsvtext = req.body.rsvtext;
   connection.query('INSERT INTO rsvs (userid, name, rsvdate, rsvstarttime, rsvendtime, tablenumber, numofrsvpeople, rsvtext) VALUES ("' + rsv.userid + '","' + rsv.name + '","' + rsv.rsvdate + '","' + rsvstarttime + '","' + rsvendtime + '","' + rsv.tablenumber + '","' + numofrsvpeople + '","' + rsvtext + '")', rsv, function (err, row) {
     if (err) throw err;
+  });
+});
+
+// username
+router.post('/userName', function (req, res) {
+  res.json({
+    loggedinusername: loggedinusername
   });
 });
 

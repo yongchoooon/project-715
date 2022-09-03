@@ -18,7 +18,7 @@ var connection = mysql.createConnection({
   host: 'localhost',
   port: 3306,
   user: 'root',
-  password: '158746',
+  password: '158746', //
   database: 'rsv715'
 });
 
@@ -187,9 +187,16 @@ router.post('/existingRsv', function (req, res) {
   };
   connection.query('SELECT rsvstarttime, rsvendtime FROM rsvs WHERE rsvdate="' + existingRsv.rsvdate + '" AND tablenumber="' + existingRsv.tablenumber + '"', function (err, row) {
     if (err) throw err;
-    res.send(row)
+    res.send(row);
   })
 })
 
+// psnInfo - 개인정보
+router.post('/psnInfo', function (req, res) {
+  connection.query('SELECT studentid, name, position, course, email FROM users WHERE userid="' + loggedinuserid + '"', function (err, row) {
+    if (err) throw err;
+    res.send(row[0]);
+  });
+});
 
 module.exports = router;

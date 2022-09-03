@@ -126,28 +126,28 @@ export default {
       if (this.bgcolorStudent === '#d9d9d9') {
         this.bgcolorStudent = 'white'
         this.bgcolorProfessor = '#d9d9d9'
-        this.user.position = 'student'
+        this.user.position = '학생'
       }
     },
     selectProfessor() {
       if (this.bgcolorProfessor === '#d9d9d9') {
         this.bgcolorStudent = '#d9d9d9'
         this.bgcolorProfessor = 'white'
-        this.user.position = 'professor'
+        this.user.position = '교수'
       }
     },
     selectBachelor() {
       if (this.bgcolorBachelor === '#d9d9d9') {
         this.bgcolorBachelor = 'white'
         this.bgcolorMaster = '#d9d9d9'
-        this.user.course = 'bachelor'
+        this.user.course = '학사'
       }
     },
     selectMaster() {
       if (this.bgcolorMaster === '#d9d9d9') {
         this.bgcolorBachelor = '#d9d9d9'
         this.bgcolorMaster = 'white'
-        this.user.course = 'master'
+        this.user.course = '석/박사'
       }
     }
   }

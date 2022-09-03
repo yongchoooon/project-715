@@ -6,10 +6,10 @@
         <p class="my-name">{{ username }}</p>
         <div id="select-info">
           <div class="select-info" id="select-rsvinfo">
-            <button @click="setMyRsvInfo">예약 정보</button>
+            <button class="rsvinfo-btn" @click="setMyRsvInfo">예약 정보</button>
           </div>
           <div class="select-info" id="select-profileinfo">
-            <button @click="setPersonalInfo">개인 정보</button>
+            <button class="rsvinfo-btn" @click="setPersonalInfo">개인 정보</button>
           </div>
         </div>
       </div>
@@ -123,14 +123,12 @@ export default {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
-#select-profileinfo > a {
-  color: black;
+.rsvinfo-btn {
+  width: 100%;
+  height: 100%;
 }
-#select-rsvinfo > a:hover {
-  color: blue;
-}
-#select-profileinfo > a:hover {
-  color: blue;
+.rsvinfo-btn:hover {
+  background-color: rgb(184, 184, 184);
 }
 #select-profileinfo {
   border-left: solid 2px gray;

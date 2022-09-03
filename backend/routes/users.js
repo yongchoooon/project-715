@@ -4,14 +4,24 @@ const bcrypt = require('bcryptjs');
 
 //추가한 부분
 var mysql = require('mysql');
-// Connection 객체 생성 
+// Connection 객체 생성 - AWS
+// var connection = mysql.createConnection({
+//   host: 'rsv715.cw0mqhawwwhk.ap-northeast-2.rds.amazonaws.com',
+//   port: 3306,
+//   user: 'admin',
+//   password: 'pknu715job',
+//   database: 'rsv715'
+// });
+
+// Connection 객체 생성 - localhost
 var connection = mysql.createConnection({
-  host: 'rsv715.cw0mqhawwwhk.ap-northeast-2.rds.amazonaws.com',
+  host: 'localhost',
   port: 3306,
-  user: 'admin',
-  password: 'pknu715job',
+  user: 'root',
+  password: '158746',
   database: 'rsv715'
 });
+
 // Connect
 connection.connect(function (err) {
   if (err) {
@@ -37,7 +47,7 @@ router.post('/signUp', function (req, res) {
     if (row[0] == undefined) { //  동일한 아이디가 없을경우,
       const salt = bcrypt.genSaltSync();
       const encryptedPassword = bcrypt.hashSync(user.password, salt);
-      connection.query('INSERT INTO users (userid,password,studentid,name,position,course,passwordanswer,email) VALUES ("' + user.userid + '","' + encryptedPassword + '","' + user.studentid + '","' + user.name + '","' + user.position + '","' + user.course + '","' + user.passwordanswer + '","' + user.email + '")', user, function (err, row2) {
+      connection.query('INSERT INTO users (userid,password,studentid,name,position,course,passwordanswer,email,loggedin) VALUES ("' + user.userid + '","' + encryptedPassword + '","' + user.studentid + '","' + user.name + '","' + user.position + '","' + user.course + '","' + user.passwordanswer + '","' + user.email + '","0")', user, function (err, row2) {
         if (err) throw err;
       });
       res.json({

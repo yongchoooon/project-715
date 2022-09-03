@@ -11,14 +11,23 @@ var app = express();
 
 //추가한 부분
 var mysql = require('mysql');
-// Connection 객체 생성 
+// Connection 객체 생성 - AWS
+// var connection = mysql.createConnection({
+//   host: 'rsv715.cw0mqhawwwhk.ap-northeast-2.rds.amazonaws.com',
+//   port: 3306,
+//   user: 'admin',
+//   password: 'pknu715job',
+//   database: 'rsv715'
+// });
+
+// Connection 객체 생성 - localhost
 var connection = mysql.createConnection({
-  host: 'rsv715.cw0mqhawwwhk.ap-northeast-2.rds.amazonaws.com',
+  host: 'localhost',
   port: 3306,
-  user: 'admin',   
-  password: 'pknu715job',
+  user: 'root',
+  password: '158746',
   database: 'rsv715'
-});  
+}); 
 // Connect
 connection.connect(function (err) {   
   if (err) {     

@@ -335,9 +335,7 @@ export default {
           alert(error)
         })
       axios.post('api/users/rsvInfo').then((res) => {
-        console.log(res.data.name)
         this.rsvInfo = res.data
-        console.log(this.rsvInfo)
       })
     }
   }

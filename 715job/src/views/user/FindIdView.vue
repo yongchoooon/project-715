@@ -2,7 +2,7 @@
   <div class="body">
     <div class="main">
       <div class="findIdHead">
-        <p><strong>아이디 찾기</strong></p>
+        <p><strong>ID 찾기</strong></p>
       </div>
       <div class="findContainer">
         <div class="findButton">
@@ -11,7 +11,7 @@
         id="findIdButton"
           outlinedcolor="black"
         >
-          아이디 찾기
+          ID 찾기
         </v-btn>
         </router-link>
         </div>
@@ -26,35 +26,65 @@
         </router-link>
         </div>
       </div>
-      <form action="" method=”post” enctype=”multipart/form-data”>
         <div class="studentInfoBox">
-          <v-text-field class="v_text_input" label="학번"></v-text-field>
+          <v-text-field :rules="user_stuid_rule" ref="studentid" class="v_text_input" label="학번" v-model="studentid" @keypress.enter="findID"></v-text-field>
         </div>
         <div class="studentInfoBox">
-          <v-text-field class="v_text_input" label="이름"></v-text-field>
+          <v-text-field :rules="user_nm_rule" ref="name" class="v_text_input" label="이름" v-model="name" @keypress.enter="findID"></v-text-field>
+        </div>
+        <div class="studentInfoBox">
+          <v-text-field :rules="user_email_rule" ref="email" class="v_text_input" label="E-mail" v-model="email" @keypress.enter="findID"></v-text-field>
         </div>
         <div class="findIdForm">
-          <router-link id="toFindIdResult" to="/user/findidresult"
-            ><input type="submit" value="아이디 찾기"
-          /></router-link>
+          <input type="button" value="ID 찾기" @click="findID"/>
         </div>
-      </form>
     </div>
   </div>
 </template>
 <script>
+import axios from 'axios'
+
 export default {
   components: {},
   data() {
     return {
-      sampleData: ''
+      studentid: '',
+      name: '',
+      email: '',
+      user_stuid_rule: [
+        v => !!v || '학번은 필수 입력사항입니다.'
+      ],
+      user_nm_rule: [
+        v => !!v || '이름은 필수 입력사항입니다.'
+      ],
+      user_email_rule: [
+        v => !!v || 'E-mail은 필수 입력사항입니다.'
+      ],
+      findid: 'a',
+      errormessasge: ''
     }
   },
-  setup() {},
-  created() {},
-  mounted() {},
-  unmounted() {},
-  methods: {}
+  methods: {
+    findID() {
+      if (this.studentid.length !== 0 && this.name.length !== 0 && this.email.length !== 0) {
+        axios.post('/api/users/findId', {
+          studentid: this.studentid,
+          name: this.name,
+          email: this.email
+        })
+        this.$router.push('/user/findidresult')
+      } else if (this.studentid.length === 0) {
+        alert('학번을 입력하세요!')
+        this.$refs.studentid.focus()
+      } else if (this.name.length === 0) {
+        alert('이름을 입력하세요!')
+        this.$refs.name.focus()
+      } else if (this.email.length === 0) {
+        alert('E-mail을 입력하세요!')
+        this.$refs.email.focus()
+      }
+    }
+  }
 }
 </script>
 
@@ -113,14 +143,14 @@ export default {
   margin: auto;
 }
 .findIdForm {
-  padding-top: 100px;
+  margin-top: 50px;
   text-align: center;
 }
 .findIdForm > #toFindIdResult {
   text-decoration: none;
   color: black;
 }
-.findIdForm > #toFindIdResult > input {
+.findIdForm > input {
   width: 388px;
   height: 70px;
   font-size: 24px;

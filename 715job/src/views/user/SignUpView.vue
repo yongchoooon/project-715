@@ -6,10 +6,10 @@
       </div>
       <div class="nameInfo">
         <div class="studentId">
-          <v-text-field type="text" id="studentid" v-model="user.studentid" class="v_text_input" label="학번" autocomplete="off"></v-text-field>
+          <v-text-field :rules="user_stuid_rule" type="text" id="studentid" v-model="user.studentid" class="v_text_input" label="학번" autocomplete="off"></v-text-field>
         </div>
         <div class="studentName">
-          <v-text-field type="text" id="name" v-model="user.name" class="v_text_input" label="이름" autocomplete='off'></v-text-field>
+          <v-text-field :rules="user_nm_rule" type="text" id="name" v-model="user.name" class="v_text_input" label="이름" autocomplete='off'></v-text-field>
         </div>
       </div>
       <div class="degreeInfo">
@@ -46,15 +46,15 @@
       </div>
       <div class="idInfo">
         <div class="infoBox">
-          <v-text-field type="text" ref="userid" id="id" v-model="user.userid" autocomplete='off' class="v_text_input" label="아이디" style="margin-bottom: 24px">
+          <v-text-field :rules="user_id_rule" type="text" ref="userid" id="id" v-model="user.userid" autocomplete='off' class="v_text_input" label="아이디" style="margin-bottom: 24px">
           </v-text-field>
         </div>
       </div>
       <div class="passwordInfo">
         <div class="infoBox">
-          <v-text-field type="password" id="password" v-model="user.password" class="v_text_input" label="비밀번호" style="margin-bottom: 24px">
+          <v-text-field :rules="user_pw_rule" type="password" class="v_text_input" label="비밀번호" style="margin-bottom: 24px" id="password" v-model="user.password">
           </v-text-field>
-          <v-text-field class="v_text_input" label="비밀번호 확인" type="password" style="margin-bottom: 24px">
+          <v-text-field :rules="user_pw_rule2" type="password" class="v_text_input" label="비밀번호 확인" style="margin-bottom: 24px">
           </v-text-field>
         </div>
       </div>
@@ -66,17 +66,17 @@
       </div>
       <div class="passwordVerify">
         <div class="infoBox">
-          <v-text-field type="text" id="password-answer" v-model="user.passwordanswer" class="v_text_input" label="비밀번호 확인 답변" style="margin-bottom: 24px">
+          <v-text-field :rules="user_pw_vrf_ans_rule" type="text" id="password-answer" v-model="user.passwordanswer" class="v_text_input" label="비밀번호 확인 질문 답변" style="margin-bottom: 24px" autocomplete='off'>
           </v-text-field>
         </div>
       </div>
       <div class="emailInfo">
         <div class="infoBox">
-          <v-text-field type="email" id="email" v-model="user.email" class="v_text_input" label="이메일"></v-text-field>
+          <v-text-field type="email" id="email" v-model="user.email" class="v_text_input" label="이메일" autocomplete='off'></v-text-field>
         </div>
       </div>
       <div class="signInButton">
-      <v-btn @click="signUp">회원가입</v-btn>
+        <v-btn @click="signUp">회원가입</v-btn>
       </div>
     </div>
   </div>
@@ -100,7 +100,28 @@ export default {
         password: '',
         passwordanswer: '',
         email: ''
-      }
+      },
+      user_stuid_rule: [
+        v => !!v || '학번은 필수 입력사항입니다.'
+      ],
+      user_id_rule: [
+        v => !!v || '아이디는 필수 입력사항입니다.'
+      ],
+      user_nm_rule: [
+        v => !!v || '이름은 필수 입력사항입니다.',
+        v => !(v && v.length >= 30) || '이름은 30자 이상 입력할 수 없습니다.',
+        v => !/[~!@#$%^&*()_+|<>?:{}]/.test(v) || '이름에는 특수문자를 사용할 수 없습니다.'
+      ],
+      user_pw_rule: [
+        v => this.state === 'ins' ? !!v || '패스워드는 필수 입력사항입니다.' : true
+      ],
+      user_pw_rule2: [
+        v => this.state === 'ins' ? !!v || '패스워드는 필수 입력사항입니다.' : true,
+        v => v === this.user.password || '패스워드가 일치하지 않습니다.'
+      ],
+      user_pw_vrf_ans_rule: [
+        v => !!v || '비밀번호 확인 질문 답변은 필수 입력사항입니다.'
+      ]
     }
   },
   methods: {

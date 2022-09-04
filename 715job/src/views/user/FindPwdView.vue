@@ -116,7 +116,7 @@ export default {
   margin: auto;
 }
 .findIdForm {
-  padding-top: 100px;
+  margin-top: 50px;
   text-align: center;
 }
 .findIdForm > #toFindIdResult {

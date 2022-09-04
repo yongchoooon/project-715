@@ -199,4 +199,34 @@ router.post('/psnInfo', function (req, res) {
   });
 });
 
+let findid = '';
+// findID - 아이디찾기
+router.post('/findId', function (req, res) {
+  const studentid = req.body.studentid;
+  const name = req.body.name;
+  const email = req.body.email;
+  connection.query('SELECT userid FROM users WHERE studentid="' + studentid + '" AND name="' + name + '" AND email="' + email + '"', function (err, row) {
+    if (err) throw err;
+    if (row[0] !== undefined) {
+      findid = row[0];
+    } else {
+      findid = '';
+    };
+  })
+})
+
+// findIDResult - 아이디 찾기 결과
+router.get('/findIdResult', function (req, res) {
+  if (findid.length === 0) {
+    res.json({
+      success: false
+    });
+  } else {
+    res.json({
+      findid: findid,
+      success: true
+    });
+  }
+})
+
 module.exports = router;

@@ -9,7 +9,7 @@
             <button class="rsvinfo-btn" @click="setMyRsvInfo">예약 정보</button>
           </div>
           <div class="select-info" id="select-profileinfo">
-            <button class="rsvinfo-btn" @click="setPersonalInfo">개인 정보</button>
+            <button class="rsvinfo-btn" @click="setPersonalInfo">내 정보</button>
           </div>
         </div>
       </div>

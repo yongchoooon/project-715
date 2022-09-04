@@ -14,7 +14,7 @@
       </div>
       <div class="degreeInfo">
         <div class="positionInfo">
-          <p>직책</p>
+          <p>직업</p>
           <div class="degreeButton">
             <span>
               <v-btn id="student" :ripple="false" :color="bgcolorStudent" width="87px" height="51px" @click="selectStudent">

@@ -4,7 +4,7 @@
     <p class="greet-user">{{ username }}님, 안녕하세요</p>
     <div class="psninfo">
       <div class="right-box-psninfo-table">
-        <li class="right-box-psninfo">&nbsp;&nbsp;개인 정보</li>
+        <li class="right-box-psninfo">&nbsp;&nbsp;내 정보</li>
         <div class="right-box-psninfo-box">
           <v-text-field
             label="이름"
@@ -21,7 +21,7 @@
             readonly
           ></v-text-field>
           <v-text-field
-            label="직책"
+            label="직업"
             required
             class="psninfo-text"
             :value="userpsninfo.position"

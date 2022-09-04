@@ -11,7 +11,7 @@
         id="findIdButton"
           color="#F1F1F1"
         >
-          아이디 찾기
+          ID 찾기
         </v-btn>
         </router-link>
         </div>
@@ -28,7 +28,7 @@
       </div>
       <form action="" method=”post” enctype=”multipart/form-data”>
         <div class="accountInfoBox">
-          <v-text-field class="v_text_input" label="아이디"></v-text-field>
+          <v-text-field class="v_text_input" label="ID"></v-text-field>
         </div>
         <div class="accountInfoBox">
           <v-text-field class="v_text_input" label="비밀번호 확인 질문" value="당신이 졸업한 초등학교는?" readonly></v-text-field>

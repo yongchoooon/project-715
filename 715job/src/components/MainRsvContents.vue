@@ -202,10 +202,10 @@ export default {
       rsvtext: '',
       rsv: {
         userid: '',
-        name: '',
-        rsvdate: this.RsvDate,
-        tablenumber: this.RsvTable
+        name: ''
       },
+      rsvdate: this.RsvDate,
+      tablenumber: this.RsvTable,
       existingrsv: [],
       existingtime: [],
       parentValue: '20',
@@ -326,6 +326,8 @@ export default {
       axios
         .post('api/users/makeRsv', {
           rsv: this.rsv,
+          rsvdate: this.RsvDate,
+          tablenumber: this.RsvTable,
           start_time: this.start_time,
           end_time: this.display_end_time,
           numofrsvpeople: this.peopleNum,

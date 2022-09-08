@@ -143,14 +143,16 @@ router.post('/makeRsv', function (req, res) {
   const rsv = {
     'userid': req.body.rsv.userid,
     'name': req.body.rsv.name,
-    'rsvdate': req.body.rsv.rsvdate,
-    'tablenumber': req.body.rsv.tablenumber
+    // 'rsvdate': req.body.rsv.rsvdate,
+    // 'tablenumber': req.body.rsv.tablenumber
   };
+  const rsvdate = req.body.rsvdate;
+  const tablenumber = req.body.tablenumber;
   const rsvstarttime = req.body.start_time;
   const rsvendtime = req.body.end_time;
   const numofrsvpeople = req.body.numofrsvpeople;
   const rsvtext = req.body.rsvtext;
-  connection.query('INSERT INTO rsvs (userid, name, rsvdate, rsvstarttime, rsvendtime, tablenumber, numofrsvpeople, rsvtext) VALUES ("' + rsv.userid + '","' + rsv.name + '","' + rsv.rsvdate + '","' + rsvstarttime + '","' + rsvendtime + '","' + rsv.tablenumber + '","' + numofrsvpeople + '","' + rsvtext + '")', rsv, function (err, row) {
+  connection.query('INSERT INTO rsvs (userid, name, rsvdate, rsvstarttime, rsvendtime, tablenumber, numofrsvpeople, rsvtext) VALUES ("' + rsv.userid + '","' + rsv.name + '","' + rsvdate + '","' + rsvstarttime + '","' + rsvendtime + '","' + tablenumber + '","' + numofrsvpeople + '","' + rsvtext + '")', rsv, function (err, row) {
     if (err) throw err;
   });
 });

@@ -47,8 +47,10 @@ export default {
     })
     axios.post('/api/users/rsvInfo').then((res) => {
       const useddata = []
+      const today = new Date()
+      const yesterday = new Date(today.setDate(today.getDate() - 1))
       for (let i = 0; i < res.data.length; i++) {
-        if (new Date().getTime() < new Date(res.data[i].rsvdate).getTime() + 43200) {
+        if (yesterday.getTime() < new Date(res.data[i].rsvdate).getTime() + 43200) {
           useddata.push(res.data[i])
         }
       }

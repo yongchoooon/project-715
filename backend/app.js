@@ -26,7 +26,7 @@ var connection = mysql.createConnection({
   port: 3306,
   user: 'root',
   password: '158746',
-  database: 'rsv715'
+  database: '715job'
 }); 
 // Connect
 connection.connect(function (err) {   
